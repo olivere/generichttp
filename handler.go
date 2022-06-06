@@ -11,12 +11,15 @@ type Handler[R, W any] func(http.ResponseWriter, Request[R]) (*Response[W], erro
 
 // Request wraps data on the request side.
 type Request[T any] struct {
+	*http.Request
 	Data *T
 }
 
 // NewRequest creates a new Request from a HTTP request.
 func NewRequest[T any](r *http.Request) Request[T] {
-	var req Request[T]
+	req := Request[T]{
+		Request: r,
+	}
 	_ = json.NewDecoder(io.LimitReader(r.Body, 1<<20)).Decode(&req.Data)
 	return req
 }
