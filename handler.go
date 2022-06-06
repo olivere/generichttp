@@ -15,7 +15,8 @@ type Request[T any] struct {
 	Data *T
 }
 
-// NewRequest creates a new Request from a HTTP request.
+// NewRequest creates a new Request from a HTTP request. It parses the HTTP
+// body up to 1 MiB.
 func NewRequest[T any](r *http.Request) Request[T] {
 	req := Request[T]{
 		Request: r,
