@@ -124,7 +124,7 @@ type addResponse struct {
 //
 //   {"result": 3}
 func (app *App) addHandler() http.Handler {
-	return generichttp.JSON(func(w http.ResponseWriter, req *generichttp.Request[addRequest]) (*generichttp.Response[addResponse], error) {
+	return generichttp.JSON(func(w http.ResponseWriter, req generichttp.Request[addRequest]) (*generichttp.Response[addResponse], error) {
 		if req.Data == nil {
 			return nil, generichttp.BadRequestError{Message: "Missing request data"}
 		}
